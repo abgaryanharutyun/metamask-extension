@@ -124,6 +124,7 @@ ConfirmTxScreen.prototype.render = function () {
         sendTransaction: this.sendTransaction.bind(this),
         cancelTransaction: this.cancelTransaction.bind(this, txData),
         cancelAllTransactions: this.cancelAllTransactions.bind(this, unconfTxList),
+        sendAllTransaction: this.sendAllTransaction.bind(this, unconfTxList),
         signMessage: this.signMessage.bind(this, txData),
         signPersonalMessage: this.signPersonalMessage.bind(this, txData),
         signTypedMessage: this.signTypedMessage.bind(this, txData),
@@ -167,6 +168,11 @@ ConfirmTxScreen.prototype.buyEth = function (address, event) {
 ConfirmTxScreen.prototype.sendTransaction = function (txData, event) {
   this.stopPropagation(event)
   this.props.dispatch(actions.updateAndApproveTx(txData))
+}
+
+ConfirmTxScreen.prototype.sendAllTransaction = function (txData, event) {
+  this.stopPropagation(event)
+  this.props.dispatch(actions.updateAndApproveAllTx(txData))
 }
 
 ConfirmTxScreen.prototype.cancelTransaction = function (txData, event) {

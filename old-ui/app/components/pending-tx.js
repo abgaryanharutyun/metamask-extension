@@ -354,6 +354,9 @@ PendingTx.prototype.render = function () {
           h('button.cancel.btn-red', {
             onClick: props.cancelAllTransactions,
           }, 'Reject All'),
+          h('button.cancel.btn-red', {
+            onClick: props.sendAllTransaction,
+          }, 'Accept All'),
         ]) : null,
       ]),
     ])

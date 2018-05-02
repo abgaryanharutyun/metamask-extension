@@ -143,6 +143,7 @@ var actions = {
   signTokenTx: signTokenTx,
   updateTransaction,
   updateAndApproveTx,
+  updateAndApproveAllTx,
   cancelTx: cancelTx,
   completedTx: completedTx,
   txError: txError,
@@ -870,6 +871,23 @@ function updateAndApproveTx (txData) {
 
         dispatch(actions.completedTx(txData.id))
         resolve(txData)
+      })
+    })
+  }
+}
+
+function updateAndApproveAllTx(txsData) {
+  return (dispatch) => {
+    txsData.forEach((txData, i) => {
+      background.updateAndApproveTransaction(txData, err => {
+        if (err) {
+          dispatch(actions.txError(err))
+          dispatch(actions.goHome())
+          log.error(err.message)
+          reject(err)
+        }
+        dispatch(actions.completedTx(txData.id))
+        i === txsData.length - 1 ? dispatch(actions.goHome()) : null
       })
     })
   }
